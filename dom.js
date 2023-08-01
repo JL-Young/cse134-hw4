@@ -6,6 +6,11 @@ function init() {
         walk();
     });
 
+    element = document.getElementById('advWalkBtn');
+    element.addEventListener('click', function () {
+        advWalk();
+    });
+
     element = document.getElementById('modifyBtn');
     element.addEventListener('click', function () {
         modify();
@@ -44,14 +49,32 @@ function walk() {
    showNode(el);
 
 
+ 
+    el = el.nextSibling;
+    showNode(el);
+ 
+    el = el.lastChild;
+    showNode(el);
+ 
+    el = el.parentNode.parentNode.parentNode;
+    showNode(el);
+ 
+    el = el.querySelector('section > *');
+    showNode(el);
+
 }
 
 function showNode(el) {
+    let travText = document.getElementById('basicWalk');
     let nodeType = el.nodeType;
     let nodeName = el.nodeName;
     let nodeValue = el.nodeValue;
 
-    alert(`Node type: ${nodeType}\nNode name: ${nodeName}\nNode value: ${nodeValue}`);
+    travText.append(`Node type: ${nodeType}\nNode name: ${nodeName}\nNode value: ${nodeValue}\n\n`);
+}
+
+function advWalk() {
+    // in progress
 }
 
 function modify() {
