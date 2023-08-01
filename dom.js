@@ -28,27 +28,13 @@ function init() {
 }
 
 function walk() {
-   let el;
+    let el;
 
-   el = document.getElementById('p1');
-   showNode(el);
-
-   el = el.firstChild;
-   showNode(el);
-
-   el = el.nextSibling;
-   showNode(el);
-
-   el = el.lastChild;
-   showNode(el);
-
-   el = el.parentNode.parentNode.parentNode;
-   showNode(el);
-
-   el = el.querySelector('section > *');
-   showNode(el);
-
-
+    el = document.getElementById('p1');
+    showNode(el);
+ 
+    el = el.firstChild;
+    showNode(el);
  
     el = el.nextSibling;
     showNode(el);
