@@ -89,17 +89,46 @@ function showNode(el) {
 }
 
 function advWalk() {
-    /*let walker = document.createTreeWalker();
-    let el;
-
-    el = walker.root;
-    showName(el);
-    alert(el.nodeName);*/
+    let rootNode = document.documentElement;
+    let domTree = advWalkHelper(rootNode);
+    document.getElementById('travTxt').value = domTree;
 }
 
-function showName(el) {
-    let nodeName = el.nodeName;
-    document.getElementById('travTxt').append(`Node name: ${nodeName}\n`);
+function advWalkHelper(rootNode) {
+    const treeWalker = document.createTreeWalker(rootNode);
+
+    let domTree = '';
+    let curNode = treeWalker.currentNode;
+    let depth = 0;
+
+    while (curNode) {
+        const indent = '|   '.repeat(depth);
+        domTree += `${indent}|-- ${curNode.nodeName}\n`;
+
+        if (curNode.firstChild) {
+            depth++;
+            treeWalker.currentNode = curNode.firstChild;
+        } else if (curNode.nextSibling) {
+            treeWalker.currentNode = curNode.nextSibling;
+        } else {
+            let prntNode = curNode.parentNode;
+            while (prntNode && !prntNode.nextSibling) {
+                depth--;
+                prntNode = parent.parentNode;
+            }
+
+            if (!prntNode) {
+                break;
+            }
+
+            depth--;
+            treeWalker.currentNode = prntNode.nextSibling;
+        }
+
+        curNode = treeWalker.currentNode;
+    }
+
+    return domTree;
 }
 
 function modify() {
@@ -223,7 +252,64 @@ function clone() {
 }
 
 function advClone() {
-    console.log('advClone');
+    const cardTemplate = document.getElementById('cardTemplate');
+    const cardClone = cardTemplate.content.cloneNode(true);
+    
+    const titleElem = cardClone.querySelector('h3');
+    titleElem.textContent = randTitle();
+
+    const txtElem = cardClone.querySelector('p');
+    txtElem.textContent = randTxt();
+
+    const imgElem = cardClone.querySelector('img');
+    imgSelect = randImg();
+    imgElem.src = imgSelect.url;
+    imgElem.alt = imgSelect.alt;
+
+    const linkElem = cardClone.querySelector('a');
+    linkElem.innerText = 'Image Sources';
+    linkElem.href = 'https://unsplash.com/s/photos/ucsd';
+
+    document.body.appendChild(cardClone);
 }
+
+function randTitle() {
+    const titles = [
+        'Architecture',
+        'Landmark',
+        'Art',
+        'Fiat Lux',
+    ];
+    return titles[Math.floor(Math.random() * titles.length)];
+}
+
+function randTxt() {
+    const txts = [
+        'Lorem ipsum dolor sit amet...',
+        'Purpose, Truth, and Vision.',
+        'Culture, Art, and Technology.',
+        'Toward a Life in Balance.',
+    ];
+    return txts[Math.floor(Math.random() * txts.length)];
+}
+
+function randImg() {
+    const imgs = [
+        {
+            url: './files/bomin-xie-kOrX221ewNg-unsplash.jpg',
+            alt: 'Image of UCSD building by Bomin Xie'
+        },
+        {
+            url: './files/jeremy-huang-_h8FSA9soGU-unsplash.jpg',
+            alt: 'Image of Warren Bear by Jeremy Huang'
+        },
+        {
+            url: './files/jessica-tan-5SsvBkT7b7Q-unsplash.jpg',
+            alt: 'Image of the Fallen Star by Jessica Tan'
+        }
+    ]
+    return imgs[Math.floor(Math.random() * imgs.length)];
+}
+
 
 window.addEventListener('DOMContentLoaded', init);

@@ -17,23 +17,32 @@
          --darkcolor4 : darkgoldenrod;
          --darkcolor5 : darkred;
          --darkcolor6 : darkmagenta;
+
+         --card-border-size : 2px;
+         --card-max-width   : 50ch;
+         --card-space-small : 1rem;
+         --card-space-med   : 2rem;
+         --card-title-size  : 4rem;
+         --card-text-size   : 2rem;
+         --card-bg-color    : beige;
+         --link-color       : darkblue;
         }
 
         label {
-            display : block;
+            display     : block;
             font-weight : bold;
         }
 
         #controls {
             background : #eee;
-            margin : 2em;
-            padding : 2em;
+            margin     : 2em;
+            padding    : 2em;
         }
 
         #controls fieldset {
             background : white;
-            margin : 1em;
-            padding : 1em;
+            margin     : 1em;
+            padding    : 1em;
         }
 
         h1 {
@@ -41,44 +50,90 @@
         }
 
         #p1 {
-            color : slategray;
+            color     : slategray;
             font-size : 3rem;
         }
 
         .fancy {
-            animation-name: backgroundColorPalette;
-            animation-duration: 10s;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
+            animation-name            : backgroundColorPalette;
+            animation-duration        : 10s;
+            animation-iteration-count : infinite;
+            animation-direction       : alternate;
         }
 
         .shmancy {
-            background-color: var(--color2);
-            animation-name: shmancyAnim;
-            animation-duration: 20s;
-            animation-iteration-count: infinite;
+            background-color          : var(--color2);
+            animation-name            : shmancyAnim;
+            animation-duration        : 20s;
+            animation-iteration-count : infinite;
         }
 
         .output {
-            border: 2px solid gray;
-            color: var(--darkcolor2);
-            background-color: var(--color4);
+            border           : 2px solid gray;
+            color            : var(--darkcolor2);
+            background-color : var(--color4);
         }
 
         @keyframes backgroundColorPalette {
-            0% {background: var(--color1);}
-            25% {background: #60d394;}
-            50% {background: #aaf683;}
-            75% {background: #ffd97d;}
-            100% {background: #ff9b85;}
+            0%   {background : var(--color1);}
+            25%  {background : #60d394;}
+            50%  {background : #aaf683;}
+            75%  {background : #ffd97d;}
+            100% {background : #ff9b85;}
         }
 
         @keyframes shmancyAnim {
-            0% {transform: translateX(0%)}
-            25% {transform: translateX(10%)}
-            50% {transform: translateX(20%)}
-            75% {transform: translateX(10%)}
-            100% {transform: translateX(0%)}
+            0%   {transform : translateX(0%)}
+            25%  {transform : translateX(10%)}
+            50%  {transform : translateX(20%)}
+            75%  {transform : translateX(10%)}
+            100% {transform : translateX(0%)}
+        }
+
+        card {
+            display            : flex;
+            flex-direction     : column;
+            background         : var(--card-bg-color);
+            margin-block-start : var(--card-space-med);
+            margin-inline      : var(--card-space-med);
+            margin-block-end   : var(--card-space-med);
+            padding            : var(--card-space-small);
+            gap                : var(--card-space-small);
+            border-radius      : var(--card-space-small);
+            max-width          : var(--card-max-width);
+        }
+
+        /*card:first-of-type {
+            margin-block-start: var(--card-margin-size);
+        }*/
+
+        card > * {
+            margin: 0;
+        }
+
+        card > h2 {
+            font-size: var(--card-title-size);
+        }
+
+        card > picture {
+            box-sizing : border-box;
+            border     : var(--card-border-size) solid var(--darkcolor4);
+            display    : flex;
+        }
+
+        card > picture > img {
+            flex       : 1;
+            max-width  : 100%;
+            object-fit : cover;
+        }
+
+        card > p {
+            font-size : var(--card-text-size);
+        }
+
+        card a {
+            font-size : var(--card-text-size);
+            color     : var(--link-color);
         }
     </style>
 </head>
@@ -199,6 +254,17 @@
 <h2>Look out below these will get deleted if you press the buttons above!</h2>
 <p>I am scared of being deleted!</p>
 <p>Me too. Oh noes, here comes the <code>removeChild()</code> method, it's going to delete us!</p>
+
+<template id="cardTemplate">
+    <card>
+        <h3></h3>
+        <picture>
+            <img>
+        </picture>
+        <p>Purpose, Truth, and Vision</p>
+        <a></a>
+    </card>
+</template>
 
 <!-- put all your new code in this dom.js file -->
 <script src="dom.js"></script>
