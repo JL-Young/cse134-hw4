@@ -52,12 +52,33 @@
             animation-direction: alternate;
         }
 
+        .shmancy {
+            background-color: var(--color2);
+            animation-name: shmancyAnim;
+            animation-duration: 20s;
+            animation-iteration-count: infinite;
+        }
+
+        .output {
+            border: 2px solid gray;
+            color: var(--darkcolor2);
+            background-color: var(--color4);
+        }
+
         @keyframes backgroundColorPalette {
             0% {background: var(--color1);}
             25% {background: #60d394;}
             50% {background: #aaf683;}
             75% {background: #ffd97d;}
             100% {background: #ff9b85;}
+        }
+
+        @keyframes shmancyAnim {
+            0% {transform: translateX(0%)}
+            25% {transform: translateX(10%)}
+            50% {transform: translateX(20%)}
+            75% {transform: translateX(10%)}
+            100% {transform: translateX(0%)}
         }
     </style>
 </head>
@@ -73,11 +94,12 @@
         <legend>Traversal</legend>
         <label for="walkBtn">Basic Traversal</label>
         <input type="button" id="walkBtn" value="Walk">
-        <textarea id="basicWalk"></textarea>
 
         <label for="advWalkBtn">Advanced Traversal</label>
         <input type="button" id="advWalkBtn" value="Advanced Walk">
-        <textarea id="advWalk"></textarea>
+        
+        <br>
+        <textarea id="travTxt"></textarea>
 
         <!--
             Q1a) Modify the simple walk button example to not use alerts but instead to print out the node information on the page in a <textarea> within this fieldset. Using appropriate spacing or returns, so we can see each step
@@ -94,6 +116,9 @@
         <label for="modifyBtn">Simple Modification</label>
         <input type="button" id="modifyBtn" value="Modify">
 
+        <label for="advModifyBtn">Advanced Modification</label>
+        <input type="button" id="advModifyBtn" value="Advanced Modify">
+
         <!--
             Q2) Add a new button "Advanced Modify" that does the following:
             1.  Changes the text of the h1 to say "DOM Manipulation is Fun!"
@@ -102,10 +127,26 @@
         -->
     </fieldset>
 
-    <fieldset>
+    <fieldset id="addField">
         <legend>Add</legend>
         <label for="addBtn">Basic Addition</label>
         <input type="button" id="addBtn" value="Add">
+        <br><br>
+
+        <label for="advAddBtn">Element Creation</label>
+        <select id="elemSelect">
+            <option value="Text Node">Text Node</option>
+            <option value="Comment">Comment</option>
+            <option value="Element">Element</option>
+        </select>
+
+        <label for="tagType">Specify Tag (only applicable to 'Text Node')</label>
+        <input type="text" id="tagType"></textarea>
+        
+        <label for="elemCont">Element Content (leave blank for default content)</label>
+        <input type="text" id="elemCont"></textarea>
+        
+        <input type="button" id="advAddBtn" value="Advanced Add">
 
         <!--
             Q3) Add a select menu that allows you to add a new element to the DOM.  The select menu should have the following options: Text Node, Comment, and Element. When you select one of these options and click the button, the appropriate element should be added to the DOM.  You may want to define an output tag to put the newly created elements in it and style it in a fashion with a border or background color, so you can tell it is new content.  You will need a corresponding text field to define the contents of the text node, comment text, or tag name you want to insert.  By default set the text of any added element to say "New Element" or "New Comment" or "New Text Node" depending on the type of element you are adding but add in the current date and time using a JS Date object.  You can use the toLocaleString() method to get a nicely formatted date and time string.
@@ -117,6 +158,14 @@
         <legend>Remove</legend>
         <label for="removeBtn">Simple Delete</label>
         <input type="button" id="removeBtn" value="Remove">
+
+        <label for="safeRmvBtn">Safe Delete</label>
+        <input type="button" id="safeRmvBtn" value="Safe Delete">
+
+        <label for="selectRmvBtn">Selective Delete</label>
+        <input type="text" id="selectCSS"></textarea>
+        <input type="button" id="selectRmvBtn" value="Delete by selector">
+
         <!--
 
           Q4a) Safe Delete
@@ -127,8 +176,14 @@
         -->
     </fieldset>
 
-    <fieldset>
+    <fieldset id="cloneField">
         <legend>Clone</legend>
+        <label for="cloneBtn">Basic Clone</label>
+        <input type="button" id="cloneBtn" value="Clone">
+
+        <label for="cloneBtn">Advanced Clone</label>
+        <input type="button" id="advCloneBtn" value="Advanced Clone">
+
         <!--
           Q5a) Add a button "Basic Clone" that clones the p tag and adds it to the DOM.  You can add it to the same area you added new content.  Be cautious with your cloning to modify attributes
 
